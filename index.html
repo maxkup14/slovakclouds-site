@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MTG FCI Viewer</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="logo.png" type="image/png">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo">MTG FCI Viewer (Experimental)</div>
+  <div class="controls">
+    <select id="productSelect">
+      <option value="natural_color">Natural Color</option>
+      <option value="cimss_cloud_type">Cloud Type</option>
+      <option value="hrv_clouds">HRV Clouds</option>
+      <option value="airmass">Airmass</option>
+      <option value="fire_temperature">Fire Temperature</option>
+      <option value="night_microphysics">Night Microphysics</option>
+    </select>
+  </div>
+  <div class="status">
+    <span id="currentImageName">Image: -</span>
+  </div>
+</header>
+
+<main class="viewer">
+  <canvas id="canvas"></canvas>
+</main>
+
+<footer class="buttons">
+    
+    <div id="timeSelector" style="display:flex; gap:8px; align-items:center;">
+        <input type="date" id="selectDate">
+        <input type="time" id="selectTime" step="600" value="00:00"> <!-- tens-only minutes -->
+        <button id="goToTimeBtn">Go</button>
+        <label style="margin-left:12px;">
+            <input type="checkbox" id="autoRefreshCheckbox" checked> Auto-refresh enable
+        </label>
+    </div>
+
+    <div>
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+    </div>
+
+</footer>
+
+<script>
+    const ts = new Date().getTime();
+    const script = document.createElement('script');
+    script.src = `script.js?ts=${ts}`;
+    document.body.appendChild(script);
+</script>
+
+</body>
+</html>

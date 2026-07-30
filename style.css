@@ -1,0 +1,72 @@
+* { box-sizing: border-box; font-family: system-ui, sans-serif; }
+
+body {
+    margin: 0;
+    background: #0b1320;
+    color: #e5e9f0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.topbar {
+    height: 56px;
+    background: #121b2f;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 20px;
+}
+
+.logo { font-weight: 600; }
+
+.controls select {
+    background: #1f2a44;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.status { margin-left: auto; }
+
+.viewer {
+    flex: 1;
+    background: black;
+    overflow: hidden;
+    position: relative;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: none;  /* IMPORTANT for mobile pan/zoom */
+}
+
+canvas:active { cursor: grabbing; }
+
+.buttons {
+    height: 60px;
+    display: flex;
+    padding: 0 15px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background: #121b2f;
+}
+
+.buttons button {
+    background: #1f2a44;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Optional: footer spacing for mobile */
+footer.buttons {
+    padding-left: 15px;
+    padding-right: 15px;
+}
