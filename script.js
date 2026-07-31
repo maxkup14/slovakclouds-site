@@ -1,4 +1,4 @@
-const R2_BASE = "https://pub-52013089c4a549af9854c13adef2a7b2.r2.dev"; // <-- replace with your actual R2 public URL
+const R2_BASE = "https://images.slovakclouds.live";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -167,7 +167,7 @@ window.addEventListener("keydown", e => {
     const timeInput = document.getElementById("selectTime");
     const goBtn = document.getElementById("goToTimeBtn");
 
-    // Utility: Convert filename like 'YYYYMMDDTHHMM.png' › Date object
+    // Utility: Convert filename like 'YYYYMMDDTHHMM.png' � Date object
     function filenameToDate(filename) {
         const base = filename.replace(".png","");
         const y = parseInt(base.substring(0,4));
