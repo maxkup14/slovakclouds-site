@@ -139,7 +139,7 @@ auto-provisioned by GitHub.
 ### 5. Scheduling
 
 Two cron jobs on the host:
-- **Pipeline cycle** — runs at `:05, :15, :25, :35, :45, :55` past every hour
+- **Pipeline cycle** — runs every 10 minutes
 - **Daily reboot** — `02:00` every day, as a periodic clean-slate safety net
   for long-running unattended operation
 
