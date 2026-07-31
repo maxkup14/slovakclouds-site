@@ -46,7 +46,7 @@ no manual intervention required once set up.
 ## Architecture
 
 ```
-┌─────────────────┐
+┌──────────────────┐
 │   EUMETSAT       │
 │   Data Store     │
 └────────┬─────────┘
