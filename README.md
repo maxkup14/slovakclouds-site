@@ -52,29 +52,29 @@ no manual intervention required once set up.
 └────────┬─────────┘
          │ eumdac download (FDHSI + HRFI, every 10 min)
          ▼
-┌──────────────────────────────────────────────────┐
-│  Docker container (Rocky Linux 9)                │
-│  ─────────────────────────────────────────       │
-│  • Geo2Grid v1.3 (bundled Python/SatPy runtime)  │
-│  • Custom composites/enhancements (FCI)          │
-│  • Custom grid definition (Slovakia stereo)      │
-│  • eumdac (data download)                        │
-│  • rclone (R2 upload)                            │
-│  • run_pipeline.sh (orchestration)               │
-└────────┬─────────────────────────────────────────┘
+┌────────────────────────────────────────────────────┐
+│  Docker container (Rocky Linux 9)                  │
+│  ─────────────────────────────────────────         │
+│  • Geo2Grid v1.3 (bundled Python/SatPy runtime)    │
+│  • Custom composites/enhancements (FCI)            │
+│  • Custom grid definition (Slovakia stereo)        │
+│  • eumdac (data download)                          │
+│  • rclone (R2 upload)                              │
+│  • run_pipeline.sh (orchestration)                 │
+└────────┬───────────────────────────────────────────┘
          │ geo2grid.sh → GeoTIFFs → add_coastlines.sh → PNGs
          │ index.json generated per product
          ▼
-┌────────────────────┐
-│  Cloudflare R2     │  (public bucket, 2-day object lifecycle)
-│  geo2grid-products │
-└────────┬───────────┘
+┌──────────────────────┐
+│  Cloudflare R2       │  (public bucket, 2-day object lifecycle)
+│  geo2grid-products   │
+└────────┬─────────────┘
          │ fetch (CORS-enabled, public dev URL)
          ▼
-┌────────────────────┐
-│  GitHub Pages      │  (static frontend: index.html / script.js / style.css)
-│  slovakclouds.live │
-└────────┬───────────┘
+┌──────────────────────┐
+│  GitHub Pages        │  (static frontend: index.html / script.js / style.css)
+│  slovakclouds.live   │
+└────────┬─────────────┘
          │
          ▼
      Site visitors
