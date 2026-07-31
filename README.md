@@ -116,8 +116,7 @@ Runs a single end-to-end cycle:
 
 ### 3. Cloudflare R2 (`geo2grid-products` bucket)
 
-- Public Development URL enabled (public, read-only access to imagery —
-  reasonable given this is public satellite data)
+- Public Development URL enabled (public, read-only access to imagery)
 - CORS policy allows cross-origin `GET` requests from the frontend's domain
 - Object Lifecycle Rule auto-deletes objects older than 2 days, keeping
   storage bounded indefinitely without manual cleanup
@@ -172,5 +171,4 @@ Two cron jobs on the host:
 
 ✅ Fully automated, running unattended on a 10-minute cadence
 ✅ Custom composites and grid definitions preserved from the original setup
-✅ Public frontend live at the original domain, on free-tier infrastructure
-   throughout (GitHub Pages + Cloudflare R2 free tier)
+✅ Public frontend live at the original domain, on free-tier infrastructure throughout (GitHub Pages + Cloudflare R2 free tier)
