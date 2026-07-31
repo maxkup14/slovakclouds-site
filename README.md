@@ -165,10 +165,4 @@ Two cron jobs on the host:
   storage with zero egress fees, and decouple the frontend, image storage,
   and processing pipeline into independently replaceable pieces.
 
----
 
-## Status
-
-✅ Fully automated, running unattended on a 10-minute cadence
-✅ Custom composites and grid definitions preserved from the original setup
-✅ Public frontend live at the original domain, on free-tier infrastructure throughout (GitHub Pages + Cloudflare R2 free tier)
