@@ -82,7 +82,7 @@ no manual intervention required once set up.
 
 ---
 
-## Repository / component breakdown
+## Workflow breakdown
 
 ### 1. Docker image (`geo2grid:1.3`)
 
