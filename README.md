@@ -110,8 +110,7 @@ Runs a single end-to-end cycle:
 - `add_coastlines.sh` overlays coastlines/borders and writes final PNGs,
   organized into per-product folders with `YYYYMMDDTHHMM.png` filenames
 - Local retention pruning (48h)
-- Generates `index.json` per product (replaces what used to be a standalone
-  script run on the original droplet)
+- Generates `index.json` per product
 - `rclone copy` uploads new/changed PNGs and `index.json` files to R2
 
 ### 3. Cloudflare R2 (`geo2grid-products` bucket)
