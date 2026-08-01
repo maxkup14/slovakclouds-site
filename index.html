@@ -5,12 +5,16 @@
   <title>MTG FCI Viewer</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.2/proj4.js"></script>
 </head>
 
 <body>
 
 <header class="topbar">
-  <div class="logo">MTG FCI Viewer (Experimental, more info : https://github.com/maxkup14/slovakclouds-site/ )</div>
+  <div class="logo">MTG FCI Viewer</div>
   <div class="controls">
     <select id="productSelect">
       <option value="natural_color">Natural Color</option>
@@ -23,29 +27,80 @@
   </div>
   <div class="status">
     <span id="currentImageName">Image: -</span>
+    <button id="markerToggleBtn" class="dt-icon-btn" aria-label="Add marker" title="Add marker">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/>
+        <circle cx="12" cy="10" r="2.5"/>
+      </svg>
+    </button>
   </div>
 </header>
+
+<div id="markerPanel" class="marker-panel hidden">
+  <div class="marker-panel-row">
+    <input type="number" id="markerLat" placeholder="Latitude" step="0.0001" min="-90" max="90">
+    <input type="number" id="markerLon" placeholder="Longitude" step="0.0001" min="-180" max="180">
+    <button id="markerAddBtn">Add</button>
+  </div>
+  <div id="markerList" class="marker-list"></div>
+</div>
 
 <main class="viewer">
   <canvas id="canvas"></canvas>
 </main>
 
-<footer class="buttons">
-    
-    <div id="timeSelector" style="display:flex; gap:8px; align-items:center;">
-        <input type="date" id="selectDate">
-        <input type="time" id="selectTime" step="600" value="00:00"> <!-- tens-only minutes -->
-        <button id="goToTimeBtn">Go</button>
-        <label style="margin-left:12px;">
-            <input type="checkbox" id="autoRefreshCheckbox" checked> Auto-refresh enable
-        </label>
-    </div>
+<footer class="datetime-bar" id="datetimeBar">
+  <div class="dt-field" data-field="year">
+    <button class="dt-arrow dt-up" data-field="year" data-dir="1" aria-label="Increase year">▲</button>
+    <span class="dt-value" id="dt-year">2026</span>
+    <button class="dt-arrow dt-down" data-field="year" data-dir="-1" aria-label="Decrease year">▼</button>
+  </div>
+  <span class="dt-sep">-</span>
+  <div class="dt-field" data-field="month">
+    <button class="dt-arrow dt-up" data-field="month" data-dir="1" aria-label="Increase month">▲</button>
+    <span class="dt-value" id="dt-month">Aug</span>
+    <button class="dt-arrow dt-down" data-field="month" data-dir="-1" aria-label="Decrease month">▼</button>
+  </div>
+  <span class="dt-sep">-</span>
+  <div class="dt-field" data-field="day">
+    <button class="dt-arrow dt-up" data-field="day" data-dir="1" aria-label="Increase day">▲</button>
+    <span class="dt-value" id="dt-day">01</span>
+    <button class="dt-arrow dt-down" data-field="day" data-dir="-1" aria-label="Decrease day">▼</button>
+  </div>
 
-    <div>
-        <button id="prev">Previous</button>
-        <button id="next">Next</button>
-    </div>
+  <div class="dt-field dt-time-field" data-field="hour">
+    <button class="dt-arrow dt-up" data-field="hour" data-dir="1" aria-label="Increase hour">▲</button>
+    <span class="dt-value" id="dt-hour">09</span>
+    <button class="dt-arrow dt-down" data-field="hour" data-dir="-1" aria-label="Decrease hour">▼</button>
+  </div>
+  <span class="dt-colon">:</span>
+  <div class="dt-field dt-time-field" data-field="minute">
+    <button class="dt-arrow dt-up" data-field="minute" data-dir="1" aria-label="Increase minute">▲</button>
+    <span class="dt-value" id="dt-minute">10</span>
+    <button class="dt-arrow dt-down" data-field="minute" data-dir="-1" aria-label="Decrease minute">▼</button>
+  </div>
 
+  <span class="dt-utc">UTC</span>
+
+  <button id="refreshBtn" class="dt-icon-btn" aria-label="Refresh now" title="Refresh now">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 12a9 9 0 1 1-3-6.7"/>
+      <polyline points="21 3 21 9 15 9"/>
+    </svg>
+  </button>
+
+  <button id="autoRefreshBtn" class="dt-toggle active" aria-pressed="true" aria-label="Toggle auto-refresh" title="Auto-refresh: on">AUTO</button>
+
+  <button id="prev" class="dt-icon-btn dt-nav" aria-label="Previous image" title="Previous image">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+  <button id="next" class="dt-icon-btn dt-nav" aria-label="Next image" title="Next image">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6"/>
+    </svg>
+  </button>
 </footer>
 
 <script>

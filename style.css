@@ -1,4 +1,4 @@
-* { box-sizing: border-box; font-family: system-ui, sans-serif; }
+* { box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
 
 body {
     margin: 0;
@@ -18,7 +18,11 @@ body {
     gap: 20px;
 }
 
-.logo { font-weight: 600; }
+.logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
 
 .controls select {
     background: #1f2a44;
@@ -28,7 +32,83 @@ body {
     border-radius: 6px;
 }
 
-.status { margin-left: auto; }
+.status { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+#currentImageName {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #cbd5e1;
+}
+
+.marker-panel {
+    position: fixed;
+    top: 64px;
+    right: 16px;
+    background: rgba(18, 27, 47, 0.96);
+    border: 1px solid #263252;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+    z-index: 20;
+    width: 220px;
+}
+.marker-panel.hidden { display: none; }
+
+.marker-panel-row {
+    display: flex;
+    gap: 6px;
+}
+.marker-panel-row input {
+    width: 0;
+    flex: 1;
+    background: #1f2a44;
+    border: 1px solid #263252;
+    color: #fff;
+    border-radius: 6px;
+    padding: 5px 6px;
+    font-size: 12px;
+}
+.marker-panel-row button {
+    background: #1f2a44;
+    border: 1px solid #263252;
+    color: #38bdf8;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.marker-panel-row button:hover { border-color: #38bdf8; }
+
+.marker-list {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 140px;
+    overflow-y: auto;
+}
+.marker-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1f2a44;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 11px;
+    color: #cbd5e1;
+}
+.marker-item span {
+    font-family: 'JetBrains Mono', monospace;
+}
+.marker-item button {
+    background: none;
+    border: none;
+    color: #f87171;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    padding: 0 0 0 8px;
+}
 
 .viewer {
     flex: 1;
@@ -46,27 +126,112 @@ canvas {
 
 canvas:active { cursor: grabbing; }
 
-.buttons {
-    height: 60px;
+.datetime-bar {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    padding: 0 15px;
-    justify-content: center;
     align-items: center;
-    gap: 20px;
-    background: #121b2f;
+    gap: 4px;
+    background: rgba(18, 27, 47, 0.92);
+    border: 1px solid #263252;
+    border-radius: 999px;
+    padding: 6px 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+    color: #e5e9f0;
+    font-size: 14px;
+    z-index: 10;
+    backdrop-filter: blur(4px);
 }
 
-.buttons button {
-    background: #1f2a44;
+.dt-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 3px;
+    line-height: 1;
+}
+
+.dt-arrow {
+    background: none;
     border: none;
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 6px;
+    color: #5b6b8c;
+    font-size: 8px;
+    line-height: 8px;
+    padding: 2px 0;
     cursor: pointer;
 }
+.dt-arrow:hover { color: #38bdf8; }
 
-/* Optional: footer spacing for mobile */
-footer.buttons {
-    padding-left: 15px;
-    padding-right: 15px;
+.dt-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    min-width: 30px;
+    text-align: center;
+    padding: 2px 0;
+}
+
+.dt-time-field .dt-value { min-width: 22px; }
+
+.dt-sep, .dt-colon {
+    color: #5b6b8c;
+    padding: 0 1px;
+}
+
+.dt-utc {
+    font-family: 'JetBrains Mono', monospace;
+    color: #38bdf8;
+    font-weight: 700;
+    font-size: 12px;
+    margin: 0 8px;
+    letter-spacing: 0.5px;
+}
+
+.dt-icon-btn {
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 50%;
+    margin-left: 2px;
+}
+.dt-icon-btn:hover { background: #1f2a44; color: #38bdf8; }
+
+.dt-toggle {
+    background: none;
+    border: 1px solid #263252;
+    color: #5b6b8c;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 5px 8px;
+    border-radius: 999px;
+    cursor: pointer;
+    margin-left: 4px;
+    transition: color 0.15s, border-color 0.15s;
+}
+.dt-toggle:hover { border-color: #38bdf8; }
+.dt-toggle.active {
+    color: #38bdf8;
+    border-color: #38bdf8;
+}
+
+.dt-nav:first-of-type { margin-left: 6px; }
+
+#refreshBtn.spinning svg { animation: dt-spin 0.6s linear; }
+@keyframes dt-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive: shrink gaps/padding on narrow screens */
+@media (max-width: 480px) {
+    .datetime-bar { gap: 2px; padding: 5px 8px; font-size: 12px; }
+    .dt-value { min-width: 24px; }
+    .dt-utc { margin: 0 4px; }
 }
